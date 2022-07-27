@@ -1,6 +1,6 @@
 package com.fengmi.goods.service.impl;
 
-import com.fengmi.goods.entity.MallGoodsBrand;
+import com.fengmi.entity.goods.MallGoodsBrand;
 import com.fengmi.goods.mapper.MallGoodsBrandMapper;
 import com.fengmi.goods.service.IMallGoodsBrandService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;

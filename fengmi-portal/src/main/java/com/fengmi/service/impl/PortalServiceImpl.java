@@ -3,10 +3,13 @@ package com.fengmi.service.impl;
 import cn.hutool.json.JSONUtil;
 import com.fengmi.cms.CMSApi;
 import com.fengmi.entity.cms.Content;
+import com.fengmi.entity.vo.CatVo;
+import com.fengmi.goods.GoodsApi;
 import com.fengmi.service.PortalService;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.BoundHashOperations;
+import org.springframework.data.redis.core.BoundValueOperations;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 
@@ -20,6 +23,8 @@ import java.util.List;
  **/
 @Service
 public class PortalServiceImpl implements PortalService {
+    @Autowired
+    private GoodsApi goodsApi;
 
     @Autowired
     private StringRedisTemplate redisTemplate;
@@ -46,5 +51,27 @@ public class PortalServiceImpl implements PortalService {
         }
         List<Content> contents = JSONUtil.toList(s, Content.class);
         return contents;
+    }
+
+    @Override
+    public List<CatVo> findListCatVo() {
+        BoundValueOperations<String, String> ops = redisTemplate.boundValueOps("portal:mallCat");
+        String s = ops.get();
+        if(StringUtils.isEmpty(s)){
+            synchronized (this){
+                s=ops.get();
+                if(StringUtils.isEmpty(s)){
+                    List<CatVo> catVos = goodsApi.findListCatVo();
+                    String jsonStr = JSONUtil.toJsonStr(catVos);
+                    ops.set(jsonStr);
+                    return catVos;
+                }else{
+                    List<CatVo> catVos = JSONUtil.toList(s, CatVo.class);
+                    return catVos;
+                }
+            }
+        }
+        return JSONUtil.toList(s,CatVo.class);
+
     }
 }

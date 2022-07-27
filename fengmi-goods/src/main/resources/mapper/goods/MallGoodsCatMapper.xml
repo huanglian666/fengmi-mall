@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fengmi.goods.mapper.MallGoodsCatMapper">
+    <resultMap id="catVoMap" type="com.fengmi.entity.vo.CatVo">
+        <id column="c1id" property="id"/>
+        <result column="c1name" property="name"/>
+        <collection property="children" ofType="com.fengmi.entity.vo.CatVo">
+            <id column="c2id"/>
+            <result column="c2name" property="name"/>
+            <collection property="children" ofType="com.fengmi.entity.vo.CatVo">
+                <id column="c3id" property="id"/>
+                <result column="c3name" property="name"/>
+            </collection>
+        </collection>
+
+    </resultMap>
+
+    <select id="findListCatVo" resultMap="catVoMap">
+        select
+            cat1.id c1id,cat1.`name` c1name,cat2.id c2id,cat2.`name` c2name,cat3.id c3id,cat3.`name` c3name
+        from
+            mall_goods_cat cat1 LEFT JOIN mall_goods_cat cat2 on
+                cat1.id=cat2.parent_id
+                                LEFT JOIN mall_goods_cat cat3 on cat2.id=cat3.parent_id
+        where cat1.parent_id=0
+    </select>
+</mapper>

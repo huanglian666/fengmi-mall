@@ -1,7 +1,7 @@
 package com.fengmi.goods.mapper;
 
-import com.fengmi.goods.entity.MallGoodsBrand;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.fengmi.entity.goods.MallGoodsBrand;
 
 /**
  * <p>

@@ -1,21 +1,21 @@
-package com.fengmi;
+package com.fengmi.goods;
 
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
-import org.springframework.cloud.openfeign.EnableFeignClients;
 
 /**
- * @ClassName: PortalApp
+ * @ClassName: GoodsApp
  * @Description: //TODO
  * @Author: huanglian
- * @Date: 2022/7/26 10:00
+ * @Date: 2022/7/27 15:31
  **/
 @SpringBootApplication
 @EnableDiscoveryClient
-@EnableFeignClients(basePackages = {"com.fengmi.cms","com.fengmi.goods"})
-public class PortalApp {
+@MapperScan("com.fengmi.goods.mapper")
+public class GoodsApp {
     public static void main(String[] args) {
-        SpringApplication.run(PortalApp.class,args);
+        SpringApplication.run(GoodsApp.class,args);
     }
 }

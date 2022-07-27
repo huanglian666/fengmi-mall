@@ -1,0 +1,13 @@
+spring:
+  cloud:
+    nacos:
+      config:
+        server-addr: 127.0.0.1:8848
+        namespace: @env@
+        group: DEFAULT_GROUP
+        prefix: fengmi-goods
+        file-extension: yml
+        shared-dataids: common.yml
+        refreshable-dataids: common.yml
+  profiles:
+    active: @env@

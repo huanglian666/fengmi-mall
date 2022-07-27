@@ -1,7 +1,7 @@
 package com.fengmi.goods.service;
 
-import com.fengmi.goods.entity.MallGoodsBrand;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.fengmi.entity.goods.MallGoodsBrand;
 
 /**
  * <p>
