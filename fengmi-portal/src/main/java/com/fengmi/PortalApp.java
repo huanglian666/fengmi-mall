@@ -13,7 +13,7 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
  **/
 @SpringBootApplication
 @EnableDiscoveryClient
-@EnableFeignClients(basePackages = {"com.fengmi.cms","com.fengmi.goods"})
+@EnableFeignClients(basePackages = {"com.fengmi"})
 public class PortalApp {
     public static void main(String[] args) {
         SpringApplication.run(PortalApp.class,args);

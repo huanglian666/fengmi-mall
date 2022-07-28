@@ -1,6 +1,7 @@
 package com.fengmi.controller;
 
 import com.fengmi.entity.cms.Content;
+import com.fengmi.entity.vo.CatHotGoodsVo;
 import com.fengmi.entity.vo.CatVo;
 import com.fengmi.goods.GoodsApi;
 import com.fengmi.service.PortalService;
@@ -30,5 +31,9 @@ public class PortalController {
     @RequestMapping("/cat/findListCatVo")
     public List<CatVo> findListCatVo(){
         return portalService.findListCatVo();
+    }
+    @RequestMapping("/findAllCatHotGoods")
+    public List<CatHotGoodsVo> findAllCatHotGoods(){
+        return portalService.findAllCatHotGoods();
     }
 }

@@ -3,6 +3,7 @@ package com.fengmi.service.impl;
 import cn.hutool.json.JSONUtil;
 import com.fengmi.cms.CMSApi;
 import com.fengmi.entity.cms.Content;
+import com.fengmi.entity.vo.CatHotGoodsVo;
 import com.fengmi.entity.vo.CatVo;
 import com.fengmi.goods.GoodsApi;
 import com.fengmi.service.PortalService;
@@ -13,6 +14,7 @@ import org.springframework.data.redis.core.BoundValueOperations;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -73,5 +75,31 @@ public class PortalServiceImpl implements PortalService {
         }
         return JSONUtil.toList(s,CatVo.class);
 
+    }
+
+    @Override
+    public List<CatHotGoodsVo> findAllCatHotGoods() {
+        BoundHashOperations<String, String, String> ops = redisTemplate.boundHashOps("portal:hotGoods");
+        List<String> values = ops.values();
+        ArrayList<CatHotGoodsVo> list = new ArrayList<>();
+        if(values==null||values.size()<=0){
+            synchronized (this){
+                values=ops.values();
+                if(values==null||values.size()<=0){
+                    List<CatHotGoodsVo> allCatHotGoods = goodsApi.findAllCatHotGoods();
+                    for (CatHotGoodsVo CatHotGood : allCatHotGoods) {
+                        String s = JSONUtil.toJsonStr(CatHotGood);
+                        ops.put(CatHotGood.getCat().getId()+"",s);
+                    }
+                    return allCatHotGoods;
+                }
+            }
+        }
+        values=ops.values();
+        for (String value : values) {
+            CatHotGoodsVo catHotGoodsVo = JSONUtil.toBean(value, CatHotGoodsVo.class);
+            list.add(catHotGoodsVo);
+        }
+        return list;
     }
 }
