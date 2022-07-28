@@ -2,4 +2,20 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.fengmi.goods.mapper.MallGoodsMapper">
 
+    <select id="findAllCat" resultType="com.fengmi.entity.goods.MallGoodsCat">
+        select
+            distinct cat.id id,cat.name name
+        from
+            mall_goods goods,mall_goods_cat cat
+        where
+            goods.category3_id=cat.id
+    </select>
+    <select id="findHotGoods" resultType="com.fengmi.entity.goods.MallGoods">
+        select
+            *
+        from
+            mall_goods goods
+        where
+            goods.category3_id=#{catId} order by hot desc limit 0,#{topn}
+    </select>
 </mapper>
