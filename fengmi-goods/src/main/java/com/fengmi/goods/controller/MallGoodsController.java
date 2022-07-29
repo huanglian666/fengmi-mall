@@ -1,10 +1,12 @@
 package com.fengmi.goods.controller;
 
 
+import com.fengmi.entity.goods.MallGoods;
 import com.fengmi.entity.vo.CatHotGoodsVo;
 import com.fengmi.goods.service.IMallGoodsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import org.springframework.web.bind.annotation.RestController;
@@ -21,6 +23,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/goods")
+@RefreshScope
 public class MallGoodsController {
     @Autowired
     private IMallGoodsService iMallGoodsService;
@@ -30,6 +33,10 @@ public class MallGoodsController {
     public List<CatHotGoodsVo> findAllCatHotGoods() {
         List<CatHotGoodsVo> allCatHotGoods = iMallGoodsService.findAllCatHotGoods(topn);
         return allCatHotGoods;
+    }
+    @RequestMapping("/findAllEsGoods")
+    public List<MallGoods> findAllEsGoods(){
+        return iMallGoodsService.findAllEsGoods();
     }
 
 }

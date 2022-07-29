@@ -1,5 +1,6 @@
 package com.fengmi.goods;
 
+import com.fengmi.entity.goods.MallGoods;
 import com.fengmi.entity.vo.CatHotGoodsVo;
 import com.fengmi.entity.vo.CatVo;
 import org.springframework.cloud.openfeign.FeignClient;
@@ -14,4 +15,6 @@ public interface GoodsApi {
     List<CatVo> findListCatVo();
     @RequestMapping("/findAllCatHotGoods")
     List<CatHotGoodsVo> findAllCatHotGoods();
+    @RequestMapping("/findAllEsGoods")
+    List<MallGoods> findAllEsGoods();
 }

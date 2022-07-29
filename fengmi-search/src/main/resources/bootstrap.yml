@@ -5,12 +5,12 @@ spring:
         server-addr: 127.0.0.1:8848
         namespace: @env@
         group: DEFAULT_GROUP
-        prefix: fengmi-goods
+        prefix: fengmi-search
         file-extension: yml
         shared-dataids: common.yml
         refreshable-dataids: common.yml
   profiles:
     active: @env@
 
-mybatis-plus:
-  type-aliases-package: "com.fengmi.entity"
+
+

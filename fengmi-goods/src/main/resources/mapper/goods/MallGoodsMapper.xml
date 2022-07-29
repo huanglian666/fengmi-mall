@@ -18,4 +18,52 @@
         where
             goods.category3_id=#{catId} order by hot desc limit 0,#{topn}
     </select>
+    <resultMap id="findEsGoods" type="com.fengmi.entity.goods.MallGoods">
+        <result property="spuId" column="spuId"></result>
+        <result property="goodsName" column="goodsName"></result>
+        <result property="price" column="default_price"></result>
+        <result property="typeTemplateId" column="template_id"></result>
+        <result property="albumPics" column="album_pics"></result>
+        <!-- 品牌-->
+        <association property="brand" javaType="com.fengmi.entity.goods.MallGoodsBrand">
+            <id property="id" column="brandId"></id>
+            <result property="name" column="brandName"></result>
+        </association>
+        <!-- 一级分类-->
+        <association property="cat1" javaType="MallGoodsCat">
+            <id property="id" column="cid1Id"></id>
+            <result property="name" column="cat1Name"></result>
+        </association>
+        <!-- 二级分类-->
+        <association property="cat2" javaType="MallGoodsCat">
+            <id property="id" column="cid2Id"></id>
+            <result property="name" column="cat2Name"></result>
+        </association>
+        <!-- 三级分类-->
+        <association property="cat3" javaType="MallGoodsCat">
+            <id property="id" column="cid3Id"></id>
+            <result property="name" column="cat3Name"></result>
+        </association>
+    </resultMap>
+    <select id="findAllEsGoods" resultMap="findEsGoods">
+        select
+            goods.spu_id spuId,goods.goods_name goodsName,
+            goods.price default_price,goods.album_pics album_pics,
+            goods.brand_id brandId,brand.`name` brandName,
+            cat1.id cid1Id,cat1.`name` cat1Name,
+            cat2.id cid2Id,cat2.`name` cat2Name,
+            cat3.id cid3Id,cat3.`name` cat3Name
+
+        from
+            mall_goods goods left join mall_goods_brand brand
+                                       on
+                                           goods.brand_id=brand.id left join mall_goods_cat cat1
+                                                                             on
+                                                                                 goods.category1_id=cat1.id left join mall_goods_cat cat2
+                                                                                                                      on
+                                                                                                                          goods.category2_id=cat2.id left join mall_goods_cat cat3
+                                                                                                                                                               on
+                                                                                                                                                                   goods.category3_id=cat3.id
+
+    </select>
 </mapper>

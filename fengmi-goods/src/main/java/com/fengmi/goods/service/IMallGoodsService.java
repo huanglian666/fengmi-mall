@@ -17,4 +17,5 @@ import java.util.List;
  */
 public interface IMallGoodsService extends IService<MallGoods> {
     List<CatHotGoodsVo> findAllCatHotGoods(Integer topn);
+    List<MallGoods> findAllEsGoods();
 }

@@ -18,5 +18,5 @@ import java.util.List;
 public interface MallGoodsMapper extends BaseMapper<MallGoods> {
     List<MallGoodsCat> findAllCat();
     List<MallGoods> findHotGoods(@Param("catId") String catId, @Param("topn") Integer topn);
-
+    List<MallGoods> findAllEsGoods();
 }

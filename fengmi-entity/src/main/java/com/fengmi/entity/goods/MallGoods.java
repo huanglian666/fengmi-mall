@@ -1,6 +1,7 @@
 package com.fengmi.entity.goods;
 
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -132,6 +133,29 @@ public class MallGoods implements Serializable {
      * 商家ID  作废
      */
     private String userId;
+
+
+
+    @TableField(exist = false)
+    private MallGoodsBrand brand;
+
+    @TableField(exist = false)
+    private MallGoodsCat cat1;
+
+
+
+
+
+
+    @TableField(exist = false)
+    private MallGoodsCat cat2;
+
+
+
+    @TableField(exist = false)
+    private MallGoodsCat cat3;
+
+
 
 
 }
